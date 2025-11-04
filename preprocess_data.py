@@ -38,7 +38,7 @@ def preprocess(config):
     train_df.to_parquet("data/processed/train.parquet")
     val_df.to_parquet("data/processed/val.parquet")
     joblib.dump(model, "data/processed/behavior_model.pkl")
-    print("✅ Preprocessing complete. Files saved in data/processed/")
+    print(" Preprocessing complete. Files saved in data/processed/")
 
 if __name__ == "__main__":
     config = yaml.safe_load(open("config.yaml"))
