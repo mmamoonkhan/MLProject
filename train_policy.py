@@ -29,8 +29,7 @@ def train(config):
     R = torch.tensor(df["reward"].values, dtype=torch.float32).to(device)
 
     model = PolicyNet(X.shape[1], config["n_actions"], config["hidden_sizes"]).to(device)
-    opt = optim.Adam(model.parameters(), lr=config["lr"])
-
+    opt = optim.Adam(model.parameters(), lr=float(config["lr"]))
     for epoch in range(config["epochs"]):
         total_loss = 0
         for i in tqdm(range(0, len(X), config["batch_size"]), desc=f"Epoch {epoch+1}"):
@@ -52,7 +51,7 @@ def train(config):
         print(f"Loss @ epoch {epoch+1}: {total_loss:.4f}")
 
     torch.save(model.state_dict(), "data/processed/policy.pt")
-    print("✅ Model trained and saved at data/processed/policy.pt")
+    print("Model trained and saved at data/processed/policy.pt")
 
 if __name__ == "__main__":
     config = yaml.safe_load(open("config.yaml"))
