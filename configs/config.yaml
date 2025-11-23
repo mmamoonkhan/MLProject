@@ -1,0 +1,29 @@
+seed: 42
+device: cpu  # change to cuda if available
+data:
+  csv_path: data/sample_logs.csv  # replace with your dataset path (Avazu/Criteo sample)
+  batch_size: 1024
+  subsample: 200000  # set to None to use all rows
+  categorical: ["C1","C2"]  # sample categorical columns - change to your columns
+  numerical: ["I1","I2"]    # sample numeric columns - change to your columns
+  action_col: "action"       # logged chosen action (int 0..K-1)
+  reward_col: "click"        # reward column 0/1
+  propensity_col: "p_log"    # logging propensity; if missing, code will simulate
+  n_actions: 10
+model:
+  emb_dim: 32
+  hidden: [256,128]
+train:
+  epochs: 50
+  lr: 5e-4
+  entropy_coef: 0.01
+  grad_clip: 1.0
+  batch_size: 1024
+  acc_steps: 1
+  checkpoint_every: 100
+eval:
+  ips_clip: 50.0
+  wis_clip: 50.0
+  bootstrap_iters: 500
+plots_dir: plots
+checkpoints_dir: checkpoints
